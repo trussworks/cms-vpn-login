@@ -49,12 +49,12 @@ repos:
         entry: poetry run flake8
         types: [python]
 
-      - id: mypy
-        name: mypy
-        stages: [commit]
-        language: system
-        entry: poetry run mypy
-        types: [python]
+#     - id: mypy
+#       name: mypy
+#       stages: [commit]
+#       language: system
+#       entry: poetry run mypy
+#       types: [python]
 
   - repo: https://github.com/asottile/seed-isort-config
     rev: v1.9.4

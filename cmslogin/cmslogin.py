@@ -1,15 +1,14 @@
 # https://support.1password.com/command-line/
 # https://docs.python.org/3.7/library/subprocess.html
 
-import subprocess
-import os
-import sys
 import json
+import os
+import subprocess
+import sys
 
 import pexpect
 
 from . import cli
-
 
 UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
 
@@ -17,25 +16,35 @@ UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
 def main() -> None:
     args = cli.parse_args()
 
-    # login to 1password
-    if not os.getenv("OP_SESSION_truss"):
-        proc_signin = subprocess.run(
-            ["op", "signin", "--output=raw"], capture_output=True, text=True
-        )
-        try:
-            proc_signin.check_returncode()
-        except subprocess.CalledProcessError:
-            print(proc_signin.stderr)
-            sys.exit(proc_signin.returncode)
-        else:
-            os.environ["OP_SESSION_truss"] = proc_signin.stdout
+    # get the 1password password
+    proc_pw = subprocess.run(
+        ["pwstore", "1password.com", "get", "password"],
+        capture_output=True,
+        text=True,
+    )
+
+    try:
+        proc_pw.check_returncode()
+    except subprocess.CalledProcessError:
+        print(proc_pw.stderr)
+        sys.exit(proc_pw.returncode)
+    else:
+        onepasswordpw = proc_pw.stdout
+        print("we have a 1password pw")
+
+    # log in to onepassword
+    print("Signing in to onepassword...")
+    child = pexpect.spawn("op signin")
+    child.expect_exact(
+        "Enter the password for ryan@truss.works at truss.1password.com:"
+    )
+    print("sending password")
+    child.sendline(onepasswordpw)
 
     print("We are logged in!")
     # get the 1pass item
     proc_get = subprocess.run(
-        ["op", "get", "item", UUID["CMS_VPN"]],
-        capture_output=True,
-        text=True,
+        ["op", "get", "item", UUID["CMS_VPN"]], capture_output=True, text=True,
     )
     try:
         item = json.loads(proc_get.stdout)
@@ -60,22 +69,20 @@ def main() -> None:
     child = pexpect.spawn("bash ./run-cms")
 
     print("waiting for username prompt...")
-    i = child.expect_exact("Username:")
+    child.expect_exact("Username:")
     print("sending username")
     child.sendline(username)
 
     print("waiting for password prompt...")
-    i = child.expect_exact("Password:")
+    child.expect_exact("Password:")
     print("sending password")
     child.sendline(password)
 
     print("waiting for totp prompt...")
-    i = child.expect_exact("Password:")  # this is really the totp
+    child.expect_exact("Password:")  # this is really the totp
     print("fetching totp")
     totp_get = subprocess.run(
-        ["op", "get", "totp", UUID["CMS_VPN"]],
-        capture_output=True,
-        text=True,
+        ["op", "get", "totp", UUID["CMS_VPN"]], capture_output=True, text=True,
     )
     print("sending totp")
     child.sendline(totp_get.stdout)
