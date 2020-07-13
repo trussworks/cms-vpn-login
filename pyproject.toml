@@ -5,7 +5,7 @@ description = "logs in to the cms vpn using 1password cli"
 authors = ["Ryan Delaney <ryan@truss.works>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "~3.7"
 pexpect = "^4.8.0"
 
 [tool.poetry.dev-dependencies]
