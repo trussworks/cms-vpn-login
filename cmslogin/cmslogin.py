@@ -10,13 +10,19 @@ import pexpect
 
 from . import cli
 
-UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
+# Every record in 1password has a UUID. This one has my password and totp for
+# the CMS VPN. Your record's UUID will be different.
+#
+# Using the UUID to do the lookup saves us parsing a few layers of nested JSON.
+# But to find it the first time, you may have to parse a few layers of nested
+# JSON manually using 1password-cli.
+OP_RECORD_UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
 
 
 def main() -> None:
     args = cli.parse_args()
 
-    # get the 1password password
+    # get the 1password password out of my personal password store
     proc_pw = subprocess.run(
         ["pwstore", "1password.com", "get", "password"],
         capture_output=True,
@@ -44,7 +50,9 @@ def main() -> None:
     print("We are logged in!")
     # get the 1pass item
     proc_get = subprocess.run(
-        ["op", "get", "item", UUID["CMS_VPN"]], capture_output=True, text=True,
+        ["op", "get", "item", OP_RECORD_UUID["CMS_VPN"]],
+        capture_output=True,
+        text=True,
     )
     try:
         item = json.loads(proc_get.stdout)
@@ -60,8 +68,8 @@ def main() -> None:
     except UnboundLocalError:
         print(f"Could not do the business in: {fields_by_name}")
 
-    username = fields_by_name.get("username").get("value")
-    password = fields_by_name.get("password").get("value")
+    username = fields_by_name["username"]["value"]
+    password = fields_by_name["password"]["value"]
 
     # try to log in
     os.chdir(f"{args.path}")
@@ -79,10 +87,12 @@ def main() -> None:
     child.sendline(password)
 
     print("waiting for totp prompt...")
-    child.expect_exact("Password:")  # this is really the totp
+    child.expect_exact("Password:")  # this second prompt is really the totp
     print("fetching totp")
     totp_get = subprocess.run(
-        ["op", "get", "totp", UUID["CMS_VPN"]], capture_output=True, text=True,
+        ["op", "get", "totp", OP_RECORD_UUID["CMS_VPN"]],
+        capture_output=True,
+        text=True,
     )
     print("sending totp")
     child.sendline(totp_get.stdout)
