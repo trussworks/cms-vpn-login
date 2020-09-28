@@ -10,17 +10,17 @@ import pexpect
 
 from . import cli
 
-# Every record in 1password has a UUID. This one has my password and totp for
-# the CMS VPN. Your record's UUID will be different.
-#
-# Using the UUID to do the lookup saves us parsing a few layers of nested JSON.
-# But to find it the first time, you may have to parse a few layers of nested
-# JSON manually using 1password-cli.
-OP_RECORD_UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
-
 
 def main() -> None:
     args = cli.parse_args()
+
+    # Every record in 1password has a UUID. This one has my password and totp
+    # for the CMS VPN. Your record's UUID will be different.
+    #
+    # Using the UUID to do the lookup saves us parsing a few layers of nested
+    # JSON.  But to find it the first time, you may have to parse a few layers
+    # of nested JSON manually using 1password-cli.
+    OP_RECORD_UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
 
     # get the 1password password out of my personal password store
     proc_pw = subprocess.run(
