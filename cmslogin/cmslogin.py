@@ -22,30 +22,14 @@ def main() -> None:
     # of nested JSON manually using 1password-cli.
     OP_RECORD_UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
 
-    # get the 1password password out of my personal password store
-    proc_pw = subprocess.run(
-        ["pwstore", "1password.com", "get", "password"],
-        capture_output=True,
-        text=True,
-    )
-
-    try:
-        proc_pw.check_returncode()
-    except subprocess.CalledProcessError:
-        print(proc_pw.stderr)
-        sys.exit(proc_pw.returncode)
-    else:
-        onepasswordpw = proc_pw.stdout
-        print("we have a 1password pw")
+    OP_EMAIL = "ryan@truss.works"
 
     # log in to onepassword
     print("Signing in to onepassword...")
     child = pexpect.spawn("op signin")
     child.expect_exact(
-        "Enter the password for ryan@truss.works at truss.1password.com:"
+        f"Enter the password for {OP_EMAIL} at truss.1password.com:"
     )
-    print("sending password")
-    child.sendline(onepasswordpw)
 
     print("We are logged in!")
     # get the 1pass item
