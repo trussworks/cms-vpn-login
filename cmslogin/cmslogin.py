@@ -20,7 +20,7 @@ def main() -> None:
     # Using the UUID to do the lookup saves us parsing a few layers of nested
     # JSON.  But to find it the first time, you may have to parse a few layers
     # of nested JSON manually using 1password-cli.
-    OP_RECORD_UUID = {"CMS_VPN": "rsfq7iycufda7m5acghwyodapq"}
+    OP_RECORD_UUID = {"CMS_VPN": args.uuid}
 
     OP_EMAIL = "ryan@truss.works"
 
