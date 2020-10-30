@@ -16,7 +16,13 @@ def parse_args() -> argparse.Namespace:
         type=str,
         metavar="PATH",
         default="./",
-        help="path to the run-cms script in the filesystem"
+        help="path to the run-cms script in the filesystem",
+    )
+    parser.add_argument(
+        "uuid",
+        type=str,
+        metavar="UUID",
+        help="UUID of the 1password record with your password & totp",
     )
 
     return parser.parse_args()
