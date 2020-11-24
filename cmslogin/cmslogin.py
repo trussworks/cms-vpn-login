@@ -22,16 +22,6 @@ def main() -> None:
     # of nested JSON manually using 1password-cli.
     OP_RECORD_UUID = {"CMS_VPN": args.uuid}
 
-    OP_EMAIL = "ryan@truss.works"
-
-    # log in to onepassword
-    print("Signing in to onepassword...")
-    child = pexpect.spawn("op signin")
-    child.expect_exact(
-        f"Enter the password for {OP_EMAIL} at truss.1password.com:"
-    )
-
-    print("We are logged in!")
     # get the 1pass item
     proc_get = subprocess.run(
         ["op", "get", "item", OP_RECORD_UUID["CMS_VPN"]],
