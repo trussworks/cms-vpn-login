@@ -13,13 +13,6 @@ from . import cli
 
 def main() -> None:
     args = cli.parse_args()
-
-    # Every record in 1password has a UUID. This one has my password and totp
-    # for the CMS VPN. Your record's UUID will be different.
-    #
-    # Using the UUID to do the lookup saves us parsing a few layers of nested
-    # JSON.  But to find it the first time, you may have to parse a few layers
-    # of nested JSON manually using 1password-cli.
     OP_RECORD_UUID = {"CMS_VPN": args.uuid}
 
     # get the 1pass item
@@ -45,7 +38,6 @@ def main() -> None:
     username = fields_by_name["username"]["value"]
     password = fields_by_name["password"]["value"]
 
-    # try to log in
     os.chdir(f"{args.path}")
     print("Spawning child process")
     child = pexpect.spawn("bash ./run-cms")
