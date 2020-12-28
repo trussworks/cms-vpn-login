@@ -41,7 +41,7 @@ Now, you can run the script by passing the path to the tinyproxy followed by the
 
 .. code-block:: console
 
-   $ python3 -m cmslogin ~/src/truss/works/openconnect-tinyproxy/ rsfq7iycufda7m5acghwyodapq
+   $ cmslogin ~/src/truss/works/openconnect-tinyproxy/ rsfq7iycufda7m5acghwyodapq
    Spawning child process
    waiting for username prompt...
    sending username
