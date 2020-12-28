@@ -24,6 +24,12 @@ Helps logging in to the CMS VPN via openconnect-tinyproxy: https://github.com/tr
 Installation
 ------------
 
+You need 1Password-cli:
+
+.. code-block:: console
+
+    brew install 1password-cli
+
 Download the latest release and install with pip:
 
 .. code-block:: console
@@ -39,9 +45,10 @@ UUID".
 
 Now, you can run the script by passing the path to the tinyproxy followed by the UUID:
 
-
 .. code-block:: console
 
+   $ eval "$(op signin)"
+   Enter the password for ryan@truss.works at truss.1password.com:
    $ cmslogin ~/src/truss/works/openconnect-tinyproxy/ rsfq7iycufda7m5acghwyodapq
    Spawning child process
    waiting for username prompt...
