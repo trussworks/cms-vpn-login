@@ -20,6 +20,15 @@ CMS VPN logger-inner
 
 Helps logging in to the CMS VPN via openconnect-tinyproxy: https://github.com/trussworks/openconnect-tinyproxy
 
+
+Installation
+------------
+
+Download the latest release and install with pip:
+
+.. code-block:: console
+    pip3 install cmslogin-0.1.0.tar.gz
+
 Usage
 -----
 
