@@ -27,6 +27,7 @@ Installation
 Download the latest release and install with pip:
 
 .. code-block:: console
+
     pip3 install cmslogin-0.1.0.tar.gz
 
 Usage
