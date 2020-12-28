@@ -24,8 +24,8 @@ def main() -> None:
     try:
         item = json.loads(proc_get.stdout)
     except json.decoder.JSONDecodeError:
-        print(f"Could not decode json in: {proc_get.stdout}")
-        print(f"stderr: {proc_get.stderr}")
+        print(f"Could not decode json in: {proc_get.stdout}", file=sys.stderr)
+        print(f"stderr: {proc_get.stderr}", file=sys.stderr)
         sys.exit(1)
 
     try:
@@ -33,7 +33,10 @@ def main() -> None:
             field.get("name"): field for field in item["details"]["fields"]
         }
     except UnboundLocalError:
-        print(f"Could not do the business in: {fields_by_name}")
+        print(
+            f"Could not do the business in: {fields_by_name}", file=sys.stderr
+        )
+        sys.exit(1)
 
     username = fields_by_name["username"]["value"]
     password = fields_by_name["password"]["value"]
