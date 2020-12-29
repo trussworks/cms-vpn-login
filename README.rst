@@ -39,11 +39,16 @@ Download the latest release and install with pip:
 Usage
 -----
 
-You need the openconnect-tinyproxy on disk. In 1Password, right click on the
-record that has your EUA password and TOTP. In the context menu choose "Copy
-UUID".
+You need the openconnect-tinyproxy on disk.
 
-Now, you can run the script by passing the path to the tinyproxy followed by the UUID:
+In 1Password, enable the option to copy a record's UUID in Preferences → Advanced → Copy UUID:
+
+.. image:: doc/data/uuid_settings.png
+
+With that set, find the record that has your EUA password and TOTP. Right
+click, and in the context menu choose "Copy UUID".
+
+Now you can run the script by passing the path to the tinyproxy followed by the UUID:
 
 .. code-block:: console
 
