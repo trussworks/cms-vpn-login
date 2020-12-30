@@ -78,6 +78,7 @@ Now you can run the script by passing the path to the tinyproxy followed by the 
    | ********************************    WARNING    ********************************
    |
 
+Once it's working, you may want to automate this with a shell script.
 
 
 Development
