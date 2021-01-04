@@ -49,13 +49,6 @@ repos:
         entry: poetry run flake8
         types: [python]
 
-#     - id: mypy
-#       name: mypy
-#       stages: [commit]
-#       language: system
-#       entry: poetry run mypy
-#       types: [python]
-
   - repo: https://github.com/asottile/seed-isort-config
     rev: v2.2.0
     hooks:
