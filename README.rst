@@ -36,10 +36,16 @@ Download the latest release and install with pip:
 
     pip3 install cmslogin-0.1.0.tar.gz
 
-Usage
+You need the openconnect-tinyproxy on disk.
+
+Setup
 -----
 
-You need the openconnect-tinyproxy on disk.
+If this is your first time running 1password-cli, you may have to do an
+explicit login to create a local configuration:
+
+.. code-block:: console
+   $ op signin trussworks.1password.com ryan@truss.works
 
 In 1Password, enable the option to copy a record's UUID in Preferences → Advanced → Copy UUID:
 
@@ -48,6 +54,8 @@ In 1Password, enable the option to copy a record's UUID in Preferences → Advan
 With that set, find the record that has your password and TOTP for the VPN.
 Right click, and in the context menu choose "Copy UUID".
 
+Usage
+-----
 Now you can run the script by passing the path to the tinyproxy followed by the UUID:
 
 .. code-block:: console
