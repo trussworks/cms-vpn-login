@@ -45,6 +45,7 @@ If this is your first time running 1password-cli, you may have to do an
 explicit login to create a local configuration:
 
 .. code-block:: console
+
    $ op signin trussworks.1password.com ryan@truss.works
 
 In 1Password, enable the option to copy a record's UUID in Preferences → Advanced → Copy UUID:
@@ -89,6 +90,7 @@ Now you can run the script by passing the path to the tinyproxy followed by the 
 Once it's working, you may want to automate this with a shell script:
 
 .. code-block:: shell
+
    #!/usr/bin/env bash
    uuid="rsfq7iycufda7m5acghwyodapq"
    path="~/src/truss/works/openconnect-tinyproxy/"
